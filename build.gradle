@@ -16,6 +16,13 @@ buildscript {
     }
 }
 
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
 dependencies {
     implementation project(":boringssl")
 }
