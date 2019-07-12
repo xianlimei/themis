@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.0'
     }
 }
 
@@ -13,8 +13,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
-    
+
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 16
@@ -28,13 +27,13 @@ android {
 		    }
 	    }
     }
-    
+
     externalNativeBuild {
         cmake {
             path "src/CMakeLists.txt"
         }
     }
-	
+
 	sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
