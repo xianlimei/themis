@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.3.0'
 
         // Two necessary plugins for uploading .aar to bintray
         // from: https://android.jlelse.eu/how-to-distribute-android-library-in-a-convenient-way-d43fb68304a7
@@ -22,13 +22,13 @@ dependencies {
 
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
-    
+    buildToolsVersion "28.0.2"
+
     defaultConfig {
     	minSdkVersion 16
         targetSdkVersion 16
     }
-    
+
     sourceSets {
     	main {
     		java.srcDirs = ['src/wrappers/themis/java']
@@ -91,7 +91,7 @@ bintray {
         publish = true
         version {
             name = '0.11.0'
-            released  = new Date()            
+            released  = new Date()
             gpg {
                 sign = true
                 passphrase = System.getenv('BINTRAY_GPG_PASSPHRASE')
