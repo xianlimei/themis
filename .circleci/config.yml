@@ -417,12 +417,12 @@ workflows:
   version: 2
   tests:
     jobs:
-      - analyze
-      # Broken build temporarily disabled (see T1133, 2019-07-03)
-      # - android
-      - x86_64
-      - jsthemis
-      - php5
-      - php70
-      - php71
-      - integration_tests
+      # - analyze
+      # # Broken build temporarily disabled (see T1133, 2019-07-03)
+      # # - android
+      # - x86_64
+      # - jsthemis
+      # - php5
+      # - php70
+      # - php71
+      # - integration_tests
