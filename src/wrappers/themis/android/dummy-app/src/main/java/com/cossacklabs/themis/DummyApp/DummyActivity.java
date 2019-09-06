@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.cossacklabs.themis.Keypair;
 import com.cossacklabs.themis.KeypairGenerator;
-import com.cossacklabs.themis.KeyGenerationException;
 
 public class DummyActivity extends Activity {
     private static final String TAG = "DummyActivity";
