@@ -1,0 +1,13 @@
+apply plugin: 'com.android.application'
+
+dependencies {
+    implementation rootProject
+}
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 16
+    }
+}

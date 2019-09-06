@@ -1,7 +1,8 @@
-package com.cossacklabs.themis;
+package com.cossacklabs.themis.DummyApp;
 
-import com.android.Activity;
-import com.android.util.Log;
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.cossacklabs.themis.Keypair;
 import com.cossacklabs.themis.KeypairGenerator;
