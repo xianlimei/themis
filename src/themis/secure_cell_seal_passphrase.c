@@ -245,6 +245,14 @@ themis_status_t themis_auth_sym_decrypt_message_with_passphrase_(const uint8_t* 
     }
     /* The algorithm also defines length of the derived key we need */
     derived_key_length = soter_alg_key_length(hdr.alg);
+    switch (derived_key_length) {
+    case SOTER_SYM_256_KEY_LENGTH / 8:
+    case SOTER_SYM_192_KEY_LENGTH / 8:
+    case SOTER_SYM_128_KEY_LENGTH / 8:
+        break;
+    default:
+        return THEMIS_FAIL;
+    }
     /* Algorithm field contains unused bits that must be set to zero */
     if (!soter_alg_reserved_bits_valid(hdr.alg)) {
         return THEMIS_FAIL;
