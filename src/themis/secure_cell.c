@@ -198,11 +198,15 @@ themis_status_t themis_secure_cell_decrypt_seal_with_passphrase(const uint8_t* p
         return res;
     }
 
+    printf("XXX encrypted=<%zu> expected=<%zu>\n", encrypted_message_length, message_length);
+
     /* We should not overflow here. If we do then the message is corrupted. */
     if (encrypted_message_length < message_length) {
         return THEMIS_FAIL;
     }
     auth_token_length = encrypted_message_length - message_length;
+
+    printf("XXX auth=<%zu>\n", auth_token_length);
 
     res = themis_auth_sym_decrypt_message_with_passphrase(passphrase,
                                                           passphrase_length,

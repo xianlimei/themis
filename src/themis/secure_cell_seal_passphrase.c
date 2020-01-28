@@ -221,10 +221,17 @@ themis_status_t themis_auth_sym_decrypt_message_with_passphrase_(const uint8_t* 
     uint8_t derived_key[THEMIS_AUTH_SYM_MAX_KEY_LENGTH / 8] = {0};
     size_t derived_key_length = 0;
 
+    printf("XXX pw=[%zu] ac=[%zu] tk=[%zu] ct=[%zu] pt=[%zu]\n",
+        passphrase_length, user_context_length, auth_token_length,
+        encrypted_message_length, *message_length);
+
     res = themis_read_scell_auth_token_passphrase(auth_token, auth_token_length, &hdr);
     if (res != THEMIS_SUCCESS) {
         return res;
     }
+
+    printf("XXX read header: alg=%08X iv=[%u] at=[%u] pt=[%u] kdf=[%u]\n",
+        hdr.alg, hdr.iv_length, hdr.auth_tag_length, hdr.message_length, hdr.kdf_context_length);
 
     /* Check that message length is consistent with header */
     if (hdr.message_length != encrypted_message_length) {
@@ -335,6 +342,8 @@ themis_status_t themis_auth_sym_decrypt_message_with_passphrase(const uint8_t* p
 
     /* encrypted_message may be omitted when only querying plaintext size */
     THEMIS_CHECK_PARAM(encrypted_message != NULL && encrypted_message_length != 0);
+
+    printf("XXX passed checks...\n");
 
     return themis_auth_sym_decrypt_message_with_passphrase_(passphrase,
                                                             passphrase_length,
