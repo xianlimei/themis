@@ -179,7 +179,10 @@ static inline themis_status_t themis_read_scell_auth_token_passphrase(
     hdr->auth_tag_length = read_uint32LE(&buffer);
     hdr->message_length = read_uint32LE(&buffer);
     hdr->kdf_context_length = read_uint32LE(&buffer);
-    need_length += hdr->iv_length + hdr->auth_tag_length + hdr->kdf_context_length;
+    /* Add separately to avoid overflows in intermediade calculations */
+    need_length += hdr->iv_length;
+    need_length += hdr->auth_tag_length;
+    need_length += hdr->kdf_context_length;
     if (buffer_length < need_length) {
         return THEMIS_FAIL;
     }
