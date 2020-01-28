@@ -43,31 +43,50 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    uint8_t* passphrase_bytes = NULL;
-    size_t passphrase_size = 0;
+    uint32_t passphrase_size = 0;
+    uint32_t user_context_size = 0;
+    uint32_t message_size = 0;
 
-    if (read_line_binary(input, &passphrase_bytes, &passphrase_size)) {
+    if (read_u32(input, &passphrase_size)) {
         fprintf(stderr, "failed to read %s: %s\n", argv[1], strerror(errno));
         return 1;
     }
-
-    uint8_t* user_context_bytes = NULL;
-    size_t user_context_size = 0;
-
-    if (read_line_binary(input, &user_context_bytes, &user_context_size)) {
+    if (read_u32(input, &user_context_size)) {
         fprintf(stderr, "failed to read %s: %s\n", argv[1], strerror(errno));
         return 1;
     }
-
-    uint8_t* message_bytes = NULL;
-    size_t message_size = 0;
-
-    if (read_line_binary(input, &message_bytes, &message_size)) {
+    if (read_u32(input, &message_size)) {
         fprintf(stderr, "failed to read %s: %s\n", argv[1], strerror(errno));
         return 1;
     }
 
     fclose(input);
+
+    /*
+     * Allocate memory. This might fail on 32-bit systems and we won't find
+     * anything interesting. We're not particuarly interested in content of
+     * those messages so use all zeros (predicatable and forces allocation).
+     */
+
+    uint8_t* passphrase_bytes = NULL;
+    uint8_t* user_context_bytes = NULL;
+    uint8_t* message_bytes = NULL;
+
+    passphrase_bytes = calloc(1, passphrase_size);
+    if (!passphrase_bytes) {
+        fprintf(stderr, "failed to allocate %u bytes\n", passphrase_size);
+        return 1;
+    }
+    user_context_bytes = calloc(1, user_context_size);
+    if (!user_context_bytes) {
+        fprintf(stderr, "failed to allocate %u bytes\n", user_context_size);
+        return 1;
+    }
+    message_bytes = calloc(1, message_size);
+    if (!message_bytes) {
+        fprintf(stderr, "failed to allocate %u bytes\n", message_size);
+        return 1;
+    }
 
     /*
      * Try encrypting the message.

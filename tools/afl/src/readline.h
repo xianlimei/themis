@@ -34,4 +34,6 @@
  */
 int read_line_binary(FILE* input, uint8_t** out_bytes, size_t* out_size);
 
+int read_u32(FILE* input, uint32_t* out_value);
+
 #endif /* READ_LINE_H */
