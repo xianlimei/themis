@@ -89,7 +89,7 @@ themis_status_t themis_auth_sym_encrypt_message_with_passphrase_(const uint8_t* 
     hdr.message_length = (uint32_t)message_length;
     /* KDF pointer is ignored but size is important */
     hdr.kdf_context = NULL;
-    hdr.kdf_context_length = (uint32_t)themis_scell_pbkdf2_context_size(&kdf);
+    hdr.kdf_context_length = themis_scell_pbkdf2_context_size(&kdf);
 
     res = soter_rand(salt, sizeof(salt));
     if (res != THEMIS_SUCCESS) {
