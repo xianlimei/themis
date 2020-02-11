@@ -87,7 +87,7 @@ themis_status_t themis_auth_sym_plain_encrypt(uint32_t alg,
                    return THEMIS_FAIL);
     soter_sym_aead_encrypt_destroy(ctx);
     if (auth_tag_length_ > UINT32_MAX) {
-        THEMIS_INVALID_PARAMETER;
+        return THEMIS_INVALID_PARAMETER;
     }
     *auth_tag_length = (uint32_t)auth_tag_length_;
     return THEMIS_SUCCESS;
@@ -183,17 +183,6 @@ themis_status_t themis_sym_plain_decrypt(uint32_t alg,
     return THEMIS_SUCCESS;
 }
 
-typedef struct themis_auth_sym_message_hdr_type {
-    uint32_t alg;
-    uint32_t iv_length;
-    uint32_t auth_tag_length;
-    uint32_t message_length;
-} themis_auth_sym_message_hdr_t;
-
-static const size_t auth_sym_context_length = sizeof(themis_auth_sym_message_hdr_t)
-                                              + THEMIS_AUTH_SYM_IV_LENGTH
-                                              + THEMIS_AUTH_SYM_AUTH_TAG_LENGTH;
-
 // TODO: move this to the top and merge
 static themis_status_t themis_auth_sym_derive_decryption_key(const uint8_t* key,
                                                              size_t key_length,
@@ -211,7 +200,13 @@ static themis_status_t themis_auth_sym_derive_encryption_key(const struct themis
                                                              uint8_t* derived_key,
                                                              size_t* derived_key_length)
 {
-    return themis_auth_sym_derive_decryption_key(key, key_length, user_context, user_context_length, hdr, derived_key, derived_key_length);
+    return themis_auth_sym_derive_decryption_key(key,
+                                                 key_length,
+                                                 user_context,
+                                                 user_context_length,
+                                                 hdr,
+                                                 derived_key,
+                                                 derived_key_length);
 }
 
 themis_status_t themis_auth_sym_encrypt_message_(const uint8_t* key,
