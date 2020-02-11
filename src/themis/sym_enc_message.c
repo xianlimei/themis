@@ -194,6 +194,26 @@ static const size_t auth_sym_context_length = sizeof(themis_auth_sym_message_hdr
                                               + THEMIS_AUTH_SYM_IV_LENGTH
                                               + THEMIS_AUTH_SYM_AUTH_TAG_LENGTH;
 
+// TODO: move this to the top and merge
+static themis_status_t themis_auth_sym_derive_decryption_key(const uint8_t* key,
+                                                             size_t key_length,
+                                                             const uint8_t* user_context,
+                                                             size_t user_context_length,
+                                                             const struct themis_scell_auth_token_key* hdr,
+                                                             uint8_t* derived_key,
+                                                             size_t* derived_key_length);
+
+static themis_status_t themis_auth_sym_derive_encryption_key(const struct themis_scell_auth_token_key* hdr,
+                                                             const uint8_t* key,
+                                                             size_t key_length,
+                                                             const uint8_t* user_context,
+                                                             size_t user_context_length,
+                                                             uint8_t* derived_key,
+                                                             size_t* derived_key_length)
+{
+    return themis_auth_sym_derive_decryption_key(key, key_length, user_context, user_context_length, hdr, derived_key, derived_key_length);
+}
+
 themis_status_t themis_auth_sym_encrypt_message_(const uint8_t* key,
                                                  size_t key_length,
                                                  const uint8_t* message,
