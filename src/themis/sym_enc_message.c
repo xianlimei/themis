@@ -183,17 +183,6 @@ themis_status_t themis_sym_plain_decrypt(uint32_t alg,
     return THEMIS_SUCCESS;
 }
 
-typedef struct themis_auth_sym_message_hdr_type {
-    uint32_t alg;
-    uint32_t iv_length;
-    uint32_t auth_tag_length;
-    uint32_t message_length;
-} themis_auth_sym_message_hdr_t;
-
-static const size_t auth_sym_context_length = sizeof(themis_auth_sym_message_hdr_t)
-                                              + THEMIS_AUTH_SYM_IV_LENGTH
-                                              + THEMIS_AUTH_SYM_AUTH_TAG_LENGTH;
-
 // TODO: move this to the top and merge
 static themis_status_t themis_auth_sym_derive_decryption_key(const uint8_t* key,
                                                              size_t key_length,
