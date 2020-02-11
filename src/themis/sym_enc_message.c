@@ -211,7 +211,13 @@ static themis_status_t themis_auth_sym_derive_encryption_key(const struct themis
                                                              uint8_t* derived_key,
                                                              size_t* derived_key_length)
 {
-    return themis_auth_sym_derive_decryption_key(key, key_length, user_context, user_context_length, hdr, derived_key, derived_key_length);
+    return themis_auth_sym_derive_decryption_key(key,
+                                                 key_length,
+                                                 user_context,
+                                                 user_context_length,
+                                                 hdr,
+                                                 derived_key,
+                                                 derived_key_length);
 }
 
 themis_status_t themis_auth_sym_encrypt_message_(const uint8_t* key,
